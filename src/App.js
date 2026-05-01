@@ -881,22 +881,24 @@ function ConnectScreen() {
   const [msg, setMsg]         = useState("");
 
   const handleConnect = async () => {
-    if (!name.trim() || !msg.trim()) return;
-    setSending(true);
-    try {
-      await fetch("https://formspree.io/f/mnjwndao", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email: email || "not provided",
-          message: msg,
-        }),
-      });
-      setSent(true);
-    } catch(e) { setSent(true); }
-    setSending(false);
-  };
+  if (!name.trim() || !msg.trim()) return;
+  setSending(true);
+  try {
+    await fetch("https://formspree.io/f/mnjwndao", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name:     name,
+        email:    email || "not provided",
+        _replyto: email || "wecreatee0.o@gmail.com",
+        _subject: `New inquiry from ${name} — wecreate0_o portfolio`,
+        message:  msg,
+      }),
+    });
+    setSent(true);
+  } catch(e) { setSent(true); }
+  setSending(false);
+};
 
   return (
     <div style={{ minHeight:"420px", background:"#0A0E27", color:"#FFFFFF", padding:"20px", fontFamily:pixelFont, overflowY:"auto" }}>
