@@ -1,38 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@keyframes tvOff {
+  0%   { opacity: 1; transform: scaleY(1);    filter: brightness(1); }
+  50%  { opacity: 1; transform: scaleY(0.01); filter: brightness(8); }
+  100% { opacity: 0; transform: scaleY(0.01); filter: brightness(0); }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes tvOn {
+  0%   { opacity: 0; transform: scaleY(0.01); filter: brightness(0); }
+  40%  { opacity: 1; transform: scaleY(0.01); filter: brightness(8); }
+  100% { opacity: 1; transform: scaleY(1);    filter: brightness(1); }
+}
+
+.tv-screen-off { animation: tvOff 0.4s ease-in  forwards; }
+.tv-screen-on  { animation: tvOn  0.6s ease-out forwards; }
+
+@keyframes glowYellow {
+  0%,100% { 
+    box-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 20px #FFD700;
+    border-color: #FFD700;
+  }
+  50% { 
+    box-shadow: 0 0 10px #FFD700, 0 0 30px #FFD700, 0 0 60px #FFD700, 0 0 80px #FFD700;
+    border-color: #fff7a1;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes glowPink {
+  0%,100% { 
+    box-shadow: 0 0 5px #FF6B9D, 0 0 10px #FF6B9D, 0 0 20px #FF6B9D;
+    border-color: #FF6B9D;
+  }
+  50% { 
+    box-shadow: 0 0 10px #FF6B9D, 0 0 30px #FF6B9D, 0 0 60px #FF6B9D, 0 0 80px #FF6B9D;
+    border-color: #ffb3cc;
+  }
+}
+.tag-yellow { 
+  animation: glowYellow 1.2s ease-in-out infinite;
+  border: 2px solid #FFD700 !important;
+}
+.tag-pink { 
+  animation: glowPink 1.2s ease-in-out infinite;
+  border: 2px solid #FF6B9D !important;
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes shake {
+  0%,100% { transform: translate(0,0);    }
+  25%     { transform: translate(-2px,1px); }
+  50%     { transform: translate(2px,-1px); }
+  75%     { transform: translate(-1px,2px); }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.tag-yellow { animation: glowYellow 1.6s ease-in-out infinite; }
+.tag-pink   { animation: glowPink   1.6s ease-in-out infinite; }
+.nav-btn:hover { animation: shake 0.3s ease; }
+
+/* Hide scrollbar on nav button row */
+.nav-btn-row { scrollbar-width: none; ms-overflow-style: none; }
+.nav-btn-row::-webkit-scrollbar { display: none; }
+
+/* Hide all other scrollbars except TV screen */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0A0E27; }
+::-webkit-scrollbar-thumb { background: #3A6BC4; }
+
+@media (max-width: 768px) {
+  .room-window {
+    left: 0 !important; right: 0 !important;
+    width: 100% !important; height: 220px !important;
+    top: 0 !important;
   }
-  to {
-    transform: rotate(360deg);
+  .room-left-panel { display: none !important; }
+  .room-plant      { display: none !important; }
+  .tv-wrap {
+    margin-left: 0 !important;
+    margin-top: 180px !important;
+    padding: 0 8px !important;
   }
+}
+@media (max-width: 480px) {
+  .room-window { height: 160px !important; }
+  .tv-wrap     { margin-top: 130px !important; }
 }
